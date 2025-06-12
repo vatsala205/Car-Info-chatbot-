@@ -4,7 +4,7 @@ import faiss
 import numpy as np
 from ctransformers import AutoModelForCausalLM
 
-# Step 1: Load csv data
+# Load csv data
 def load_car_csv(file_path):
     df = pd.read_csv(file_path)
     texts = []
@@ -13,20 +13,20 @@ def load_car_csv(file_path):
         texts.append(text)
     return texts
 
-# Step 2: Embed with SentenceTransformer
+# Embed with SentenceTransformer
 def embed_texts(texts):
     model = SentenceTransformer('paraphrase-MiniLM-L6-v2')
     embeddings = model.encode(texts, convert_to_tensor=False)
     return embeddings, model
 
-# Step 3: Build FAISS Index
+# Build FAISS Index
 def build_faiss_index(embeddings):
     dim = len(embeddings[0])
     index = faiss.IndexFlatL2(dim)
     index.add(np.array(embeddings).astype('float32'))
     return index
 
-# Step 4: Load TinyLLaMA locally
+# Load TinyLLaMA locally
 llm = AutoModelForCausalLM.from_pretrained(
     "models/tinyllama-1.1b-chat-v1.0.Q8_0.gguf",
     model_type="llama",
@@ -34,7 +34,7 @@ llm = AutoModelForCausalLM.from_pretrained(
     local_files_only=True
 )
 
-# Step 5: Generate answer based on question + context
+# Generate answer based on question + context
 def answer_question(question, texts, index, embed_model, top_k=1, debug=False):
     q_embed = embed_model.encode([question])
     _, I = index.search(np.array(q_embed).astype('float32'), top_k)
