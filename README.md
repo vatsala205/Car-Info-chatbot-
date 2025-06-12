@@ -57,35 +57,43 @@ An AI-powered chatbot that provides detailed information about classic cars. It 
 
 ```bash
 pip install -r requirements.txt
-
+```
 2. **Place the TinyLLaMA model in the models/ directory**:
 
 Ensure it's named:
 ```bash
 tinyllama-1.1b-chat-v1.0.Q8_0.gguf
 ```
-Run the Streamlit App:
+3. **Run the Streamlit App**:
 
 ```bash
 streamlit run app.py
 ```
 
-##✅ Example Questions
-ford mustang horsepower and acceleration
+## ✅ Example Questions
 
-amc gremlin mpg
+Here are a few example queries you can try:
 
-toyota corona mark ii displacement and weight
+- **"Ford Mustang horsepower and acceleration"**  
+- **"AMC Gremlin MPG"**  
+- **"Toyota Corona Mark II displacement and weight"**
 
-##📌 Notes
-The app only answers based on the top semantic match from the dataset.
+These questions will return specific stats from the top-matching car record in the dataset.
 
-Ensure your Automobile.csv file includes valid and clean data.
+---
 
-The chatbot will return “❌ Sorry...” if it can't match the requested fields.
+## 📌 Notes
 
-##📷 Architecture
-See the visual diagram for system flow:
+- The chatbot uses **semantic search** and responds based on the **most similar entry** in the dataset.
+- Ensure your `Automobile.csv` file is **properly formatted** and contains clean, consistent values.
+- If no relevant data is found or the requested field is missing, the bot replies with:  
+  ❌ _"Sorry, I couldn’t find the requested info."_
+
+---
+
+## 📷 Architecture Diagram
+
+Refer to the image below for a visual representation of how the system works:
 
 ![image](https://github.com/user-attachments/assets/bbed1333-340a-4958-a5db-cee0307726f0)
 
